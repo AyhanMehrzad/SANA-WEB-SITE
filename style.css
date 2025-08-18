@@ -201,6 +201,7 @@ header input {
   pointer-events: none;
 }
 
+/* ---------------------------------------loading screen------------------------------- */
 #preloader {
   position: fixed;
   inset: 0;
@@ -288,5 +289,69 @@ header input {
   50% {
     transform: translateX(-50%) scale(0.5);
     border-color: #f2f2f2;
+  }
+}
+
+/* ---------------------------------------Bot button------------------------------- */
+
+.Bot-Button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  z-index: 10000;
+  animation: bot-bounce 1.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.Bot-Button .circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgb(0, 225, 255);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.Bot-Button:hover .circle,
+.Bot-Button:focus-within .circle,
+.Bot-Button .circle:hover,
+.Bot-Button .circle:focus-within {
+  transform: scale(1.06);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.Bot-Button a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  font-size: 26px;
+}
+
+@keyframes bot-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media screen and (max-width: 615px) {
+  .Bot-Button {
+    width: 56px;
+    height: 56px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    right: max(16px, env(safe-area-inset-right));
   }
 }
