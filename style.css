@@ -26,7 +26,11 @@ body {
 
 /* header */
 
-header { 
+.site-header { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   height: 100px;
   width: 100%;
   background: #094e7d;
@@ -41,24 +45,37 @@ header {
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 24px;
+  position: relative;
 }
 
-.message h2 {
+.message {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-header .message h2 {
   font-family: "Bellavoir Serif", "Poppins", serif;
   font-weight: 400;
   font-size: 3rem;
 }
 
 
-.logo {
-  width: 80px;
-  height: 80px;
+.site-header .logo {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(48px, 8vw, 80px);
+  height: clamp(48px, 8vw, 80px);
   overflow: hidden;
 }
 
-.logo img {
+.site-header .logo img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 /* header */
 
@@ -124,7 +141,7 @@ header input {
   margin-top: 40px;
 }
 .piano-keys .key {
-  cursor: pointer;
+  cursor: inherit;
   user-select: none;
   position: relative;
   text-transform: uppercase;
@@ -419,10 +436,15 @@ textarea,
 }
 
 /* Selection crosshair utility */
-.select-crosshair {
-  cursor: url("curoshair/Alternate Select.ani"),
-    url("curoshair/Precision Select .cur"), crosshair;
+.select-crosshair,
+.select-crosshair * {
+  cursor: url("curoshair/Alternate Select 2.ani"),
+    url("curoshair/Alternate Select.ani"),
+    url("curoshair/Precision Select .cur"),
+    crosshair !important;
 }
+
+
 
 
 
