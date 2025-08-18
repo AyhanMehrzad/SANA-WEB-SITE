@@ -1,0 +1,74 @@
+@import "https://unpkg.com/open-props" layer(design.system);
+
+@layer demo {
+  fieldset {
+    grid-template-columns:
+      var(--col-1, 1fr)
+      var(--col-2, 1fr)
+      var(--col-3, 1fr)
+      var(--col-4, 1fr)
+      var(--col-5, 1fr);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    fieldset {
+      transition: grid-template-columns 2s var(--ease-spring-5);
+    }
+  }
+
+  fieldset:has(label:nth-child(1) > input:checked) {
+    --col-1: 5fr;
+    --col-2: 3fr;
+  }
+  fieldset:has(label:nth-child(2) > input:checked) {
+    --col-1: 2fr;
+    --col-2: 5fr;
+    --col-3: 2fr;
+  }
+  fieldset:has(label:nth-child(3) > input:checked) {
+    --col-2: 2fr;
+    --col-3: 5fr;
+    --col-4: 2fr;
+  }
+  fieldset:has(label:nth-child(4) > input:checked) {
+    --col-3: 2fr;
+    --col-4: 5fr;
+    --col-5: 2fr;
+  }
+  fieldset:has(label:nth-child(5) > input:checked) {
+    --col-4: 3fr;
+    --col-5: 5fr;
+  }
+
+  fieldset > label {
+    background-image: var(--_img);
+    background-position: center;
+    background-size: auto 125%;
+  }
+}
+
+@layer demo.support {
+  fieldset {
+    inline-size: 80vw;
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: 50vh;
+    gap: var(--size-3);
+    border: none;
+  }
+
+  fieldset > label {
+    cursor: pointer;
+    border-radius: var(--radius-4);
+  }
+
+  fieldset > label:focus-within {
+    outline: 1px solid #fff;
+    outline-offset: 5px;
+  }
+
+  fieldset > label > input {
+    opacity: 0;
+  }
+}

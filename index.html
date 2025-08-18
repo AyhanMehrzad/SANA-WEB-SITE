@@ -5,12 +5,16 @@
     <title>Playable Piano JavaScript | CodingStella</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="style-mouse-effect.css" />
+    <link rel="stylesheet" href="gallerystyle.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="script.js" defer></script>
     <script src="https://kit.fontawesome.com/1ee8f271b9.js"></script>
     <script src="./script-mouse-effect.js" defer></script>
   </head>
   <body>
+
+
+    <!-- loader -->
     <div id="preloader">
       <div class="container">
         <div class="preloader">
@@ -20,9 +24,49 @@
         <span class="shadow"></span>
       </div>
     </div>
-    <div class="message">
-      <h2>Happy Birthday Sana!</h2>
-    </div>
+  <!-- loader -->
+
+
+    <!-- header -->
+    <header>
+      <div class="message">
+        <div class="logo">
+          <img src="logo.png" alt="logo" />
+        </div>
+        <h2>Happy Birthday Sana!</h2>
+      </div>
+    </header>
+   <!-- header -->
+    <!-- gallery -->
+    <fieldset>
+      <label
+        style="--_img: url(https://assets.codepen.io/2585/fiddle-leaf.jpeg)"
+      >
+        <input type="radio" name="images" value="Fiddle Leaf" />
+      </label>
+      <label
+        style="--_img: url(https://assets.codepen.io/2585/pink-princess.jpeg)"
+      >
+        <input type="radio" name="images" value="Pink Princess" />
+      </label>
+      <label
+        style="
+          --_img: url(https://assets.codepen.io/2585/kara-eads-zcVArTF8Frs-unsplash.jpg);
+        "
+      >
+        <input type="radio" name="images" value="Monstera" checked />
+      </label>
+      <label style="--_img: url(https://assets.codepen.io/2585/pothos.jpeg)">
+        <input type="radio" name="images" value="Pothos" />
+      </label>
+      <label
+        style="--_img: url(https://assets.codepen.io/2585/rubber-tree.webp)"
+      >
+        <input type="radio" name="images" value="Rubber Tree" />
+      </label>
+    </fieldset>
+
+    <!-- piano -->
     <div class="wrapper">
       <header>
         <h2>Sonako PIANO</h2>
@@ -54,16 +98,49 @@
         <li class="key white" data-key=";"><span>;</span></li>
       </ul>
     </div>
+
+    <div class="Bot-Button">
+      <div class="circle">
+        <a href="#" aria-label="Chat bot">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect
+              x="3"
+              y="7"
+              width="18"
+              height="12"
+              rx="3"
+              ry="3"
+              fill="currentColor"
+            />
+            <circle cx="9" cy="13" r="1.8" fill="#0e0e0e" />
+            <circle cx="15" cy="13" r="1.8" fill="#0e0e0e" />
+            <rect
+              x="10"
+              y="3"
+              width="4"
+              height="3"
+              rx="0.8"
+              ry="0.8"
+              fill="currentColor"
+            />
+            <rect
+              x="11.25"
+              y="1.5"
+              width="1.5"
+              height="3"
+              rx="0.5"
+              ry="0.5"
+              fill="currentColor"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
     <div class="disclaimer">
       <p>
         this web site will be developed in future in time that I have the honor
         to know you!
       </p>
-    </div>
-    <div class="Bot-Button">
-      <div class="circle">
-        <a href="#" aria-label="Chat bot"><i class="fa-solid fa-robot"></i></a>
-      </div>
     </div>
   </body>
 </html>
