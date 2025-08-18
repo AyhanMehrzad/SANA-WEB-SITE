@@ -5,6 +5,15 @@ const pianoKeys = document.querySelectorAll(".piano-keys .key"),
 let allKeys = [],
   audio = new Audio(`tunes/a.wav`); // by default, audio src is "a" tune
 
+// Preloader hide on full load
+window.addEventListener("load", () => {
+  const preloader = document.getElementById("preloader");
+  if (preloader) {
+    preloader.classList.add("preloader-hide");
+    setTimeout(() => preloader.remove(), 400);
+  }
+});
+
 const playTune = (key) => {
   audio.src = `tunes/${key}.wav`; // passing audio src based on key pressed
   audio.currentTime = 0; // restart audio so repeated presses are responsive
