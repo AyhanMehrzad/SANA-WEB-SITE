@@ -141,10 +141,18 @@ header input {
   margin-top: 40px;
 }
 .piano-keys .key {
-  cursor: inherit;
+  cursor: url("curoshair/link 700.cur"), pointer;
   user-select: none;
   position: relative;
   text-transform: uppercase;
+}
+
+/* Gallery: use pointer cursor */
+body fieldset > label {
+  cursor: url("curoshair/link 700.cur"), pointer !important;
+}
+body fieldset input[type="radio"] {
+  cursor: url("curoshair/link 700.cur"), pointer !important;
 }
 .piano-keys .black {
   z-index: 2;
@@ -435,14 +443,9 @@ textarea,
   cursor: url("curoshair/Text Select.cur"), text;
 }
 
-/* Selection crosshair utility */
-.select-crosshair,
-.select-crosshair * {
-  cursor: url("curoshair/Alternate Select 2.ani"),
-    url("curoshair/Alternate Select.ani"),
-    url("curoshair/Precision Select .cur"),
-    crosshair !important;
-}
+/* Removed select-crosshair; using pointer cursors instead */
+
+
 
 
 
