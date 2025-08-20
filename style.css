@@ -17,8 +17,11 @@
 body {
   display: flex;
   flex-direction: column;
-  background: #9fd0e0;
-background: linear-gradient(120deg, rgba(159, 208, 224, 1) 0%, rgba(83, 132, 237, 1) 100%);
+  background:url(pic/anime-style-clouds\(1\).jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
@@ -294,9 +297,8 @@ body fieldset input[type="radio"] {
   justify-content: center;
   height: 100px;
   width: 100%;
-  color: #fff;
-  background: #020024;
-  background: linear-gradient(10deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 15%, rgba(0, 212, 255, 1) 100%);
+  color: #000000;
+  background:transparent;
   font-size: 1.19rem;
   text-align: center;
   padding: 10px;
