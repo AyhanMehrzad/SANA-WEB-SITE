@@ -1,0 +1,12 @@
+Options -MultiViews
+RewriteEngine On
+
+# Serve existing files first
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# /api/foo -> /api/foo.php
+RewriteRule ^([A-Za-z0-9_-]+)/?$ $1.php [L,QSA]
+
+
