@@ -48,7 +48,7 @@ const createStar = (position) => {
   const star = document.createElement("span"),
     color = selectRandom(config.colors);
 
-  star.className = "star fa-solid fa-sparkle";
+  star.className = "star fa-solid fa-star";
 
   // Offset so the sparkle sits right on the cursor tip/crosshair center
   star.style.left = px(position.x + CURSOR_OFFSET.x);

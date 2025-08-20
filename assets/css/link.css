@@ -21,7 +21,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-    cursor: url('curoshair/normsl u.cur'), auto;
+    cursor: url('../curoshair/link 700.cur'), auto;
 }
 
 #profilePicture, #profilePicture img {
@@ -32,7 +32,7 @@ body {
     margin: 40px auto 20px;
     border-radius: 50%;
     -webkit-tap-highlight-color: transparent;
-    cursor: url('curoshair/link 700.cur'), pointer;
+    cursor: url('../curoshair/link 700.cur'), pointer;
 }
 
 #userName {
@@ -70,11 +70,11 @@ body {
     text-decoration: none;
     /* transition: all .25s cubic-bezier(.08, .59, .29, .99); */
     -webkit-tap-highlight-color: transparent;
-    cursor: url('curoshair/link 700.cur'), pointer;
+    cursor: url('../curoshair/link 700.cur'), pointer;
 }
 
 input, textarea {
-    cursor: url('curoshair/Text Select.cur'), text;
+    cursor: url('../curoshair/Text Select.cur'), text;
 }
 
 /* (reverted) removed forced crosshair rules */

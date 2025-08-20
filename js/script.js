@@ -1,187 +1,106 @@
-/* =============== LIGHT MODE =============== */
-const toggleButton = document.getElementById("theme-toggle");
-const themeIcon = document.getElementById("theme-icon");
+const pianoKeys = document.querySelectorAll(".piano-keys .key"),
+  volumeSlider = document.querySelector(".volume-slider input"),
+  keysCheckbox = document.querySelector(".keys-checkbox input");
 
-document.addEventListener("DOMContentLoaded", () => {
-  const isLightMode = localStorage.getItem("theme") === "light";
-  document.body.classList.toggle("light-mode", isLightMode);
-  themeIcon.src = isLightMode
-    ? "assets/images/icon/sun.svg"
-    : "assets/images/icon/moon.svg";
-  themeIcon.alt = isLightMode ? "Sun icon" : "Moon icon";
-});
+let allKeys = [],
+  audio = new Audio(`tunes/a.wav`); // by default, audio src is "a" tune
 
-toggleButton.addEventListener("click", () => {
-  const isLightMode = document.body.classList.toggle("light-mode");
-  localStorage.setItem("theme", isLightMode ? "light" : "dark");
-  themeIcon.src = isLightMode
-    ? "assets/images/icon/sun.svg"
-    : "assets/images/icon/moon.svg";
-  themeIcon.alt = isLightMode ? "Sun icon" : "Moon icon";
-});
-
-/* =============== SHARE MODE =============== */
-const overlay = document.getElementById("shareOverlay");
-const popup = document.getElementById("sharePopup");
-const qrContainer = document.getElementById("qrContainer");
-const closeBtn = document.getElementById("closeSharePopup");
-const copyBtn = document.getElementById("copyBtn");
-const shareBtn = document.getElementById("shareBtn");
-const downloadBtn = document.getElementById("downloadBtn");
-const successToast = document.getElementById("successToast");
-
-let currentLink = "";
-let qrCode = null;
-
-// Open popup handler
-function handleShareClick(e) {
-  e.preventDefault();
-  currentLink = this.getAttribute("data-link");
-
-  // Update copy button clipboard text
-  copyBtn.setAttribute("data-clipboard-text", currentLink);
-
-  overlay.classList.remove("hidden");
-  setTimeout(() => overlay.classList.add("active"), 10);
-
-  generateQR();
-}
-
-// Attach event listeners to all share triggers
-document.querySelectorAll(".share-trigger").forEach((btn) => {
-  btn.removeEventListener("click", handleShareClick);
-  btn.addEventListener("click", handleShareClick);
-});
-
-function generateQR() {
-  if (qrCode) {
-    qrCode.clear();
-    qrCode = null;
+// Preloader hide on full load
+window.addEventListener("load", () => {
+  const preloader = document.getElementById("preloader");
+  if (preloader) {
+    preloader.classList.add("preloader-hide");
+    setTimeout(() => preloader.remove(), 400);
   }
+});
 
-  qrContainer.innerHTML =
-    '<div style="color: rgba(0, 0, 0, 0.4);" class="loading">Generating QR Code...</div>';
+const playTune = (key) => {
+  audio.src = `tunes/${key}.wav`; // passing audio src based on key pressed
+  audio.currentTime = 0; // restart audio so repeated presses are responsive
+  audio.play(); // playing audio
 
-  setTimeout(() => {
-    qrContainer.innerHTML = "";
-    qrContainer.classList.remove("loading");
-
-    qrCode = new QRCode(qrContainer, {
-      text: currentLink,
-      width: 180,
-      height: 180,
-      colorDark: "rgba(0, 0, 0, 0.9)",
-      colorLight: "rgba(255, 255, 255, 0.9)",
-      correctLevel: QRCode.CorrectLevel.H,
-    });
-  }, 500);
-}
-
-function closePopup() {
-  overlay.classList.remove("active");
-  setTimeout(() => {
-    overlay.classList.add("hidden");
-    qrContainer.classList.add("loading");
-  }, 300);
-}
-
-closeBtn.onclick = closePopup;
-
-overlay.onclick = (e) => {
-  if (e.target === overlay) closePopup();
+  const clickedKey = document.querySelector(`[data-key="${key}"]`); // getting clicked key element
+  if (clickedKey) {
+    clickedKey.classList.add("active"); // adding active class to the clicked key element
+    setTimeout(() => {
+      // removing active class after 150 ms from the clicked key element
+      clickedKey.classList.remove("active");
+    }, 150);
+  }
 };
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && overlay.classList.contains("active")) {
-    closePopup();
+pianoKeys.forEach((key) => {
+  allKeys.push(key.dataset.key); // adding data-key value to the allKeys array
+  // calling playTune function with passing data-key value as an argument
+  key.addEventListener("click", () => playTune(key.dataset.key));
+});
+
+const handleVolume = (e) => {
+  audio.volume = e.target.value; // passing the range slider value as an audio volume
+};
+
+const showHideKeys = () => {
+  // toggling hide class from each key on the checkbox click
+  pianoKeys.forEach((key) => key.classList.toggle("hide"));
+};
+
+const pressedKey = (e) => {
+  // normalize to lowercase so Caps Lock / Shift don't break mapping
+  const key = (e.key || "").toLowerCase();
+  // if the pressed key is in the allKeys array, only call the playTune function
+  if (allKeys.includes(key)) {
+    e.preventDefault();
+    playTune(key);
   }
-});
+};
 
-// Clipboard.js integration
-const clipboard = new ClipboardJS('.clipboard-btn');
+keysCheckbox.addEventListener("click", showHideKeys);
+volumeSlider.addEventListener("input", handleVolume);
+document.addEventListener("keydown", pressedKey);
 
-clipboard.on('success', function (e) {
-  showToast("Link copied to clipboard!");
-  copyBtn.style.transform = "scale(0.95)";
-  setTimeout(() => {
-    copyBtn.style.transform = "";
-  }, 150);
-  e.clearSelection();
-});
-
-clipboard.on('error', function (e) {
-  // fallback copy
-  fallbackCopyTextToClipboard(currentLink);
-  showToast("Copied using fallback method");
-});
-
-// Optional fallback for clipboard API
-function fallbackCopyTextToClipboard(text) {
-  const textarea = document.createElement("textarea");
-  textarea.value = text;
-  textarea.style.position = "fixed";
-  textarea.style.top = "-9999px";
-  document.body.appendChild(textarea);
-  textarea.focus();
-  textarea.select();
+// Gallery expansion fallback for browsers without :has support
+(function initGalleryFallback() {
   try {
-    document.execCommand("copy");
-  } catch (err) {
-    console.error("Fallback copy failed", err);
-  }
-  document.body.removeChild(textarea);
-}
-
-shareBtn.onclick = async () => {
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: "Check this out!",
-        text: "I wanted to share this link with you",
-        url: currentLink,
-      });
-    } catch (err) {
-      if (err.name !== "AbortError") {
-        showToast("Share failed", true);
-      }
+    if (CSS && CSS.supports && CSS.supports("selector(:has(*))")) {
+      return; // native CSS handles expansion
     }
-  } else {
-    showToast("Sharing not supported on this device", true);
+  } catch (e) {
+    // If CSS.supports throws, proceed with fallback
   }
-};
 
-downloadBtn.onclick = () => {
-  const canvas = qrContainer.querySelector("canvas");
-  const img = qrContainer.querySelector("img");
+  const fieldset = document.querySelector("fieldset");
+  if (!fieldset) return;
 
-  if (canvas) {
-    const link = document.createElement("a");
-    link.href = canvas.toDataURL("image/png");
-    link.download = `qr-code-${Date.now()}.png`;
-    link.click();
-    showToast("QR code downloaded!");
-  } else if (img) {
-    const link = document.createElement("a");
-    link.href = img.src;
-    link.download = `qr-code-${Date.now()}.png`;
-    link.click();
-    showToast("QR code downloaded!");
-  } else {
-    showToast("QR code not ready", true);
-  }
-};
+  const labels = Array.from(fieldset.querySelectorAll(":scope > label"));
+  const inputs = labels.map((label) => label.querySelector("input[type=radio]"));
 
-// Toast helper
-function showToast(message, isError = false) {
-  Toastify({
-    text: `${isError ? "⚠️" : "✅"} ${message}`,
-    duration: 3000,
-    gravity: "bottom",
-    position: "right",
-    backgroundColor: isError
-      ? "linear-gradient(135deg, #ef4444, #dc2626)"
-      : "linear-gradient(135deg, #10b981, #059669)",
-    stopOnFocus: true,
-    close: true,
-  }).showToast();
-}
+  const applyLayout = (index) => {
+    const sizes = ["1fr", "1fr", "1fr", "1fr", "1fr"];
+    if (index === 0) {
+      sizes[0] = "5fr"; sizes[1] = "3fr";
+    } else if (index === 1) {
+      sizes[0] = "2fr"; sizes[1] = "5fr"; sizes[2] = "2fr";
+    } else if (index === 2) {
+      sizes[1] = "2fr"; sizes[2] = "5fr"; sizes[3] = "2fr";
+    } else if (index === 3) {
+      sizes[2] = "2fr"; sizes[3] = "5fr"; sizes[4] = "2fr";
+    } else if (index === 4) {
+      sizes[3] = "3fr"; sizes[4] = "5fr";
+    }
+    // Apply as CSS custom properties expected by CSS
+    sizes.forEach((val, i) => {
+      fieldset.style.setProperty(`--col-${i + 1}`, val);
+    });
+  };
+
+  inputs.forEach((input, i) => {
+    if (!input) return;
+    input.addEventListener("change", () => {
+      if (input.checked) applyLayout(i);
+    });
+  });
+
+  // Initialize based on currently checked input
+  const initialIndex = inputs.findIndex((inp) => inp && inp.checked);
+  applyLayout(initialIndex >= 0 ? initialIndex : 0);
+})();

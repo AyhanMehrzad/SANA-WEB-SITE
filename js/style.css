@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: "Bellavoir Serif";
-  src: url("BellavoirSerif_PERSONAL_USE_ONLY.otf") format("opentype");
+  src: url("../assets/fonts/BellavoirSerif_PERSONAL_USE_ONLY.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -17,7 +17,7 @@
 body {
   display: flex;
   flex-direction: column;
-  background:url(pic/anime-style-clouds\(1\).jpg);
+  background:url("../assets/pic/anime-style-clouds(1).jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -238,7 +238,7 @@ header input {
   margin-top: 40px;
 }
 .piano-keys .key {
-  cursor: url("curoshair/link 700.cur"), pointer;           
+  cursor: url("../assets/curoshair/link 700.cur"), pointer;           
   user-select: none;
   position: relative;
   text-transform: uppercase;
@@ -246,10 +246,10 @@ header input {
 
 /* Gallery: use pointer cursor */
 body fieldset > label {
-  cursor: url("curoshair/link 700.cur"), pointer !important;
+  cursor: url("../assets/curoshair/link 700.cur"), pointer !important;
 }
 body fieldset input[type="radio"] {
-  cursor: url("curoshair/link 700.cur"), pointer !important;
+  cursor: url("../assets/curoshair/link 700.cur"), pointer !important;
 }
 .piano-keys .black {
   z-index: 2;
@@ -388,20 +388,20 @@ body fieldset input[type="radio"] {
 /* Default site cursor */
 body,
 html {
-  cursor: url("curoshair/normsl u.cur"), auto;
+  cursor: url("../assets/curoshair/normsl u.cur"), auto;
 }
 
 /* Links and buttons */
 a,
 button {
-  cursor: url("curoshair/link 700.cur"), pointer;
+  cursor: url("../assets/curoshair/link 700.cur"), pointer;
 }
 
 /* Text inputs and editable areas */
 input,
 textarea,
 [contenteditable="true"] {
-  cursor: url("curoshair/Text Select.cur"), text;
+  cursor: url("../assets/curoshair/Text Select.cur"), text;
 }
 
 /* Removed select-crosshair; using pointer cursors instead */
