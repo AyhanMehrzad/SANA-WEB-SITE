@@ -1,21 +1,14 @@
-# Clean routes for the site
 Options -MultiViews
+DirectoryIndex index.html
 RewriteEngine On
 
-# 1) Serve existing files and directories directly
+# Serve existing files and directories directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# 2) API pretty routes: /api/health -> /api/health.php
-RewriteRule ^api/([A-Za-z0-9_-]+)/?$ api/$1.php [L,QSA]
-
-# 3) Named routes for static pages
+# Only the two routes you requested
 RewriteRule ^$ index.html [L]
 RewriteRule ^links/?$ link.html [L]
-
-# 4) SPA-style fallback: anything else -> index.html (optional)
-# Comment this out if you prefer a 404 for unknown paths
-RewriteRule . index.html [L]
 
 
