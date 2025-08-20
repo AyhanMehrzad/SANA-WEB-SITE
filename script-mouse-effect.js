@@ -19,6 +19,9 @@ const config = {
   animations: ["fall-1", "fall-2", "fall-3"],
 };
 
+// Cursor hotspot alignment (tweak if the sparkle appears above/below the cursor)
+const CURSOR_OFFSET = { x: 0, y: 24 };
+
 let count = 0;
 
 const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min,
@@ -47,8 +50,9 @@ const createStar = (position) => {
 
   star.className = "star fa-solid fa-sparkle";
 
-  star.style.left = px(position.x);
-  star.style.top = px(position.y);
+  // Offset so the sparkle sits right on the cursor tip/crosshair center
+  star.style.left = px(position.x + CURSOR_OFFSET.x);
+  star.style.top = px(position.y + CURSOR_OFFSET.y);
   star.style.fontSize = selectRandom(config.sizes);
   star.style.color = `rgb(${color})`;
   star.style.textShadow = `0px 0px 1.5rem rgb(${color} / 0.5)`;
@@ -65,8 +69,8 @@ const createGlowPoint = (position) => {
 
   glow.className = "glow-point";
 
-  glow.style.left = px(position.x);
-  glow.style.top = px(position.y);
+  glow.style.left = px(position.x + CURSOR_OFFSET.x);
+  glow.style.top = px(position.y + CURSOR_OFFSET.y);
 
   appendElement(glow);
 
