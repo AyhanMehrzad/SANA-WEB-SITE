@@ -112,3 +112,43 @@
     overflow: hidden;
   }
 }
+
+/* Responsive tweaks for gallery */
+@media (max-width: 900px) {
+  @layer demo.support {
+    fieldset {
+      inline-size: 92vw;
+      grid-template-rows: min(55vh, 70vw);
+      gap: 12px;
+    }
+  }
+  
+  @supports not selector(:has(*)) {
+    fieldset {
+      inline-size: 92vw;
+      grid-template-rows: min(55vh, 70vw);
+      gap: 12px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  @layer demo {
+    fieldset > label:hover { transform: scale(1.01); }
+    fieldset > label:has(> input:checked) { transform: scale(1.03); }
+  }
+  @layer demo.support {
+    fieldset {
+      inline-size: 94vw;
+      grid-template-rows: min(50vh, 78vw);
+      gap: 10px;
+    }
+  }
+  @supports not selector(:has(*)) {
+    fieldset {
+      inline-size: 94vw;
+      grid-template-rows: min(50vh, 78vw);
+      gap: 10px;
+    }
+  }
+}
