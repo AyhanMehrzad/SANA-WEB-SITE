@@ -20,7 +20,7 @@ const config = {
 };
 
 // Cursor hotspot alignment (tweak if the sparkle appears above/below the cursor)
-const CURSOR_OFFSET = { x: 0, y: 24 };
+const CURSOR_OFFSET = { x: 20, y: 20 };
 
 let count = 0;
 
