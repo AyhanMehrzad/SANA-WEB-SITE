@@ -430,17 +430,45 @@ fieldset {
   .wrapper {
     padding: 25px;
   }
-  header {
-    flex-direction: column;
+  .wrapper header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "title title"
+      "vol   keys";
+    justify-items: center;
+    align-items: center;
+    gap: 8px;
   }
-  header :where(h2, .column) {
-    margin-bottom: 13px;
+  .wrapper header h2 {
+    grid-area: title;
+    text-align: center;
+    font-size: 1.25rem;
   }
-  .volume-slider input {
+  .wrapper header .volume-slider { grid-area: vol; }
+  .wrapper header .keys-checkbox { grid-area: keys; }
+  .wrapper header :where(h2, .column) {
+    margin-bottom: 8px;
+  }
+  .wrapper .volume-slider input {
     max-width: 100px;
+  }
+  .keys-checkbox input {
+    width: 48px;
+    height: 24px;
+  }
+  .keys-checkbox input::before {
+    width: 16px;
+    height: 16px;
+    left: 4px;
+  }
+  .keys-checkbox input:checked::before {
+    left: 28px;
   }
   .piano-keys {
     margin-top: 20px;
+    overflow-x: auto;
+    padding-bottom: 6px;
   }
   .piano-keys .key:where(:nth-child(9), :nth-child(10)) {
     display: none;
@@ -457,6 +485,45 @@ fieldset {
 }
 
 @media screen and (max-width: 615px) {
+  .wrapper {
+    padding: 18px;
+  }
+  .wrapper header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "title title"
+      "vol   keys";
+    gap: 6px;
+    justify-items: center;
+    align-items: center;
+  }
+  .wrapper header h2 {
+    grid-area: title;
+    font-size: 1.05rem;
+    text-align: center;
+  }
+  .wrapper header .volume-slider { grid-area: vol; }
+  .wrapper header .keys-checkbox { grid-area: keys; }
+  .wrapper header span {
+    font-size: 1rem;
+    margin-right: 10px;
+  }
+  .wrapper .volume-slider input {
+    max-width: 88px;
+  }
+  .keys-checkbox input {
+    width: 44px;
+    height: 22px;
+  }
+  .keys-checkbox input::before {
+    width: 14px;
+    height: 14px;
+    left: 4px;
+  }
+  .keys-checkbox input:checked::before {
+    left: 26px;
+  }
   .site-header {
     flex-direction: column;
     align-items: center;
@@ -493,7 +560,17 @@ fieldset {
   .piano-keys .key :nth-child(17) {
     display: none;
   }
+  .piano-keys {
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
   .piano-keys .white {
     width: 50px;
+    height: 160px;
+  }
+  .piano-keys .black {
+    width: 36px;
+    height: 90px;
+    margin: 0 -18px 0 -18px;
   }
 }
