@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sonako.art/sitemap.xml
+
+
